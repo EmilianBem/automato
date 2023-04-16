@@ -18,9 +18,12 @@ bme280 = adafruit_bme280.Adafruit_BME280_I2C(i2c)
 # change this to match the location's pressure (hPa) at sea level
 bme280.sea_level_pressure = 1013.25
 
-while True:
-    print("\nTemperature: %0.1f C" % bme280.temperature)
-    print("Humidity: %0.1f %%" % bme280.relative_humidity)
-    print("Pressure: %0.1f hPa" % bme280.pressure)
-    print("Altitude = %0.2f meters" % bme280.altitude)
-    time.sleep(2)
+
+def bme280_out():
+    bme_reading = {
+        "Temperature": bme280.temperature,
+        "Humidity": bme280.relative_humidity,
+        "Pressure": bme280.pressure,
+        "Altitude": bme280.altitude
+    }
+    return bme_reading
