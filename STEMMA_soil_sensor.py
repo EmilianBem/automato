@@ -12,12 +12,15 @@ i2c_bus = board.I2C()  # uses board.SCL and board.SDA
 
 ss = Seesaw(i2c_bus, addr=0x36)
 
-while True:
-    # read moisture level through capacitive touch pad
-    touch = ss.moisture_read()
+
+def stemma_out():
+    moisture = ss.moisture_read()
 
     # read temperature from the temperature sensor
     temp = ss.get_temp()
 
-    print("temp: " + str(temp) + "  moisture: " + str(touch))
-    time.sleep(1)
+    stemma_reading = {
+        "Temperature": temp,
+        "Moisture": moisture
+    }
+    return stemma_reading    # read moisture level through capacitive touch pad
