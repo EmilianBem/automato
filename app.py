@@ -1,6 +1,6 @@
 from flask import Flask
-from bme280_out import bme280
-from stemma_out import STEMMA_soil_sensor
+from bme280 import bme280_out
+from STEMMA_soil_sensor import stemma_out
 
 app = Flask(__name__)
 
