@@ -5,31 +5,42 @@ import RPi.GPIO as GPIO
 
 app = Flask(__name__)
 
-RELAY_PIN = 17
+# Konfiguracja pinów dla urządzeń
+DEVICE_PINS = {
+    "device1": 23,
+    "device2": 22,
+    "device3": 27,
+    "device4": 17
+}
+
+# Inicjalizacja pinów GPIO
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(RELAY_PIN, GPIO.OUT)
+for pin in DEVICE_PINS.values():
+    GPIO.setup(pin, GPIO.OUT)
 
 @app.route('/bme680')
 def api_bme680_out():
-	return bme680_out()
+    return bme680_out()
 
 @app.route('/STEMMA_soil_sensor')
 def api_stemma_out():
-	return stemma_out()
-
+    return stemma_out()
 
 @app.route('/')
 def index():
-	response = str(render_template('index.html'))
-	return response
+    response = str(render_template('index.html'))
+    return response
 
 @app.route('/control', methods=['POST'])
 def control():
     action = request.form['action']
+    device = request.form['device']
+    
     if action == 'on':
-        GPIO.output(RELAY_PIN, GPIO.HIGH)
+        GPIO.output(DEVICE_PINS[device], GPIO.HIGH)
     elif action == 'off':
-        GPIO.output(RELAY_PIN, GPIO.LOW)
+        GPIO.output(DEVICE_PINS[device], GPIO.LOW)
+    
     return 'OK'
 
 @app.route('/update_sensor_data')
@@ -47,8 +58,3 @@ def update_sensor_data():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8123, debug=True)
-
-
-if __name__ == '__main__':
-	#app.run()
-	app.run(host='0.0.0.0', port=8123, debug=True)
