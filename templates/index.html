@@ -29,16 +29,46 @@
 
     <div class="container">
         <div class="row">
-            <form class="col s12" action="/control" method="post">
+            <form class="col s12" action="/control-devices" method="post">
                 <div class="row center-align">
-                    <div class="input-field col s6">
-                        <button class="btn-large waves-effect waves-light blue-grey darken-3" type="submit" name="action" value="on">
-                            <i class="material-icons left">power_settings_new</i> Turn On
+                    <div class="input-field col s4">
+                        <button class="btn-large waves-effect waves-light blue-grey darken-3" type="submit" name="device" value="fan" data-action="on">
+                            <i class="material-icons left">power_settings_new</i> Fan On
                         </button>
                     </div>
-                    <div class="input-field col s6">
-                        <button class="btn-large waves-effect waves-light red darken-3" type="submit" name="action" value="off">
-                            <i class="material-icons left">power_settings_new</i> Turn Off
+                    <div class="input-field col s4">
+                        <button class="btn-large waves-effect waves-light red darken-3" type="submit" name="device" value="fan" data-action="off">
+                            <i class="material-icons left">power_settings_new</i> Fan Off
+                        </button>
+                    </div>
+                    <div class="input-field col s4">
+                        <button class="btn-large waves-effect waves-light green darken-3" type="submit" name="device" value="lights_1" data-action="on">
+                            <i class="material-icons left">power_settings_new</i> Lights On
+                        </button>
+                    </div>
+                    <div class="input-field col s4">
+                        <button class="btn-large waves-effect waves-light orange darken-3" type="submit" name="device" value="lights_1" data-action="off">
+                            <i class="material-icons left">power_settings_new</i> Lights Off
+                        </button>
+                    </div>
+                    <div class="input-field col s4">
+                        <button class="btn-large waves-effect waves-light green darken-3" type="submit" name="device" value="lights_2" data-action="on">
+                            <i class="material-icons left">power_settings_new</i> Lights On
+                        </button>
+                    </div>
+                    <div class="input-field col s4">
+                        <button class="btn-large waves-effect waves-light orange darken-3" type="submit" name="device" value="lights_2" data-action="off">
+                            <i class="material-icons left">power_settings_new</i> Lights Off
+                        </button>
+                    </div>
+                    <div class="input-field col s4">
+                        <button class="btn-large waves-effect waves-light blue darken-3" type="submit" name="device" value="water_pump" data-action="on">
+                            <i class="material-icons left">power_settings_new</i> Water Pump On
+                        </button>
+                    </div>
+                    <div class="input-field col s4">
+                        <button class="btn-large waves-effect waves-light teal darken-3" type="submit" name="device" value="water_pump" data-action="off">
+                            <i class="material-icons left">power_settings_new</i> Water Pump Off
                         </button>
                     </div>
                 </div>

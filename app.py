@@ -5,9 +5,23 @@ import RPi.GPIO as GPIO
 
 app = Flask(__name__)
 
-RELAY_PIN = 17
+RELAY_PIN_FAN = 22
+RELAY_PIN_LIGHTS_1 = 23
+RELAY_PIN_LIGHTS_2 = 27
+RELAY_PIN_WATER_PUMP = 17
+
+device_pin_map = {
+    'fan': RELAY_PIN_FAN,
+    'lights_1': RELAY_PIN_LIGHTS_1,
+    'lights_2': RELAY_PIN_LIGHTS_2,
+    'water_pump': RELAY_PIN_WATER_PUMP
+}
+
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(RELAY_PIN, GPIO.OUT)
+GPIO.setup(RELAY_PIN_FAN, GPIO.OUT)
+GPIO.setup(RELAY_PIN_LIGHTS_1, GPIO.OUT)
+GPIO.setup(RELAY_PIN_LIGHTS_2, GPIO.OUT)
+GPIO.setup(RELAY_PIN_WATER_PUMP, GPIO.OUT)
 
 @app.route('/bme680')
 def api_bme680_out():
@@ -23,13 +37,23 @@ def index():
 	response = str(render_template('index.html'))
 	return response
 
-@app.route('/control', methods=['POST'])
-def control():
+@app.route('/control-devices', methods=['POST'])
+def control_devices():
+    device = request.form['device']
     action = request.form['action']
+
+    if device in device_pin_map:
+        pin = device_pin_map[device]
+    else:
+        return 'Invalid device'
+
     if action == 'on':
-        GPIO.output(RELAY_PIN, GPIO.HIGH)
+        GPIO.output(pin, GPIO.HIGH)
     elif action == 'off':
-        GPIO.output(RELAY_PIN, GPIO.LOW)
+        GPIO.output(pin, GPIO.LOW)
+    else:
+        return 'Invalid action'
+
     return 'OK'
 
 @app.route('/update_sensor_data')
@@ -47,8 +71,3 @@ def update_sensor_data():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8123, debug=True)
-
-
-if __name__ == '__main__':
-	#app.run()
-	app.run(host='0.0.0.0', port=8123, debug=True)
