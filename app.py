@@ -1,8 +1,13 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from bme680 import bme680_out
 from STEMMA_soil_sensor import stemma_out
+import RPi.GPIO as GPIO
 
 app = Flask(__name__)
+
+RELAY_PIN = 17
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(RELAY_PIN, GPIO.OUT)
 
 @app.route('/bme680')
 def api_bme680_out():
@@ -11,6 +16,7 @@ def api_bme680_out():
 @app.route('/STEMMA_soil_sensor')
 def api_stemma_out():
 	return stemma_out()
+
 
 @app.route('/')
 def index():
@@ -21,6 +27,14 @@ def index():
 	#response = "dupa"
 	return response
 
+@app.route('/control', methods=['POST'])
+def control():
+    action = request.form['action']
+    if action == 'on':
+        GPIO.output(RELAY_PIN, GPIO.HIGH)
+    elif action == 'off':
+        GPIO.output(RELAY_PIN, GPIO.LOW)
+    return 'OK'
 
 if __name__ == '__main__':
 	#app.run()
