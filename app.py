@@ -12,8 +12,8 @@ RELAY_PIN_WATER_PUMP = 17
 
 device_pin_map = {
     'fan': RELAY_PIN_FAN,
-    'lights-1': RELAY_PIN_LIGHTS_1,
-    'lights-2': RELAY_PIN_LIGHTS_2,
+    'light-1': RELAY_PIN_LIGHTS_1,
+    'light-2': RELAY_PIN_LIGHTS_2,
     'water-pump': RELAY_PIN_WATER_PUMP
 }
 
