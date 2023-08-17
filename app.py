@@ -54,7 +54,7 @@ def control_devices():
     else:
         return 'Invalid action'
 
-    return 'OK'
+    return str(render_template('index.html'))
 
 @app.route('/update_sensor_data')
 def update_sensor_data():
