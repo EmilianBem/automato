@@ -12,9 +12,9 @@ RELAY_PIN_WATER_PUMP = 17
 
 device_pin_map = {
     'fan': RELAY_PIN_FAN,
-    'lights_1': RELAY_PIN_LIGHTS_1,
-    'lights_2': RELAY_PIN_LIGHTS_2,
-    'water_pump': RELAY_PIN_WATER_PUMP
+    'lights-1': RELAY_PIN_LIGHTS_1,
+    'lights-2': RELAY_PIN_LIGHTS_2,
+    'water-pump': RELAY_PIN_WATER_PUMP
 }
 
 GPIO.setmode(GPIO.BCM)
@@ -39,17 +39,17 @@ def index():
 
 @app.route('/control-devices', methods=['POST'])
 def control_devices():
-    device = request.form['device']
-    action = request.form['action']
-
+    req = request.form['action']
+    action = req[-1]
+    device = req[:-2]
     if device in device_pin_map:
         pin = device_pin_map[device]
     else:
         return 'Invalid device'
 
-    if action == 'on':
+    if action == '0':
         GPIO.output(pin, GPIO.HIGH)
-    elif action == 'off':
+    elif action == '1':
         GPIO.output(pin, GPIO.LOW)
     else:
         return 'Invalid action'
