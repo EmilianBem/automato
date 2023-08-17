@@ -40,7 +40,7 @@ def index():
 @app.route('/control-devices', methods=['POST'])
 def control_devices():
     device = request.form['device']
-    action = request.form['action']
+    action = request.form['data-action']
 
     if device in device_pin_map:
         pin = device_pin_map[device]
