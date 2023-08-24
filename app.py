@@ -71,3 +71,18 @@ def update_sensor_data():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8123, debug=True)
+
+try:
+    while True:
+        stemma_out = api_stemma_out()
+        bme_values = api_bme680_out()
+
+        if stemma_values["Moisture"] > 300:
+            GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.HIGH)  # Turn on output pin
+        else:
+            GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.LOW)  # Turn off output pin
+
+        time.sleep(5000)  # Delay to avoid rapid reading
+
+except KeyboardInterrupt:
+    pass
