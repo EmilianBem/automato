@@ -81,17 +81,17 @@ async def trigger_fan_from_humidity_on_sensor():
                 GPIO.output(RELAY_PIN_FAN, GPIO.HIGH)
             elif bme_values["Humidity"] < 40:
                 GPIO.output(RELAY_PIN_FAN, GPIO.LOW)
-                time.sleep(5000)  # check sensor every 1s
-            time.sleep(10000)  # Delay to avoid rapid reading
+                time.sleep(5)  # check sensor every 1s
+            time.sleep(10)  # Delay to avoid rapid reading
     except KeyboardInterrupt:
         pass
 async def trigger_lights_periodically():
     try:
         while True:
             GPIO.output(RELAY_PIN_LIGHTS_1, GPIO.HIGH)
-            time.sleep(1000)
+            time.sleep(1)
             GPIO.output(RELAY_PIN_LIGHTS_1, GPIO.LOW)
-            time.sleep(1000)
+            time.sleep(1)
 
     except KeyboardInterrupt:
         pass
@@ -104,8 +104,8 @@ def trigger_water_pump_from_moisture_on_sensor():
                 GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.LOW)
             elif stemma_values["Moisture"] < 500:
                 GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.HIGH)
-                time.sleep(1000)  # check sensor every 1s while watering
-            time.sleep(5000)  # Delay to avoid rapid reading
+                time.sleep(1)  # check sensor every 1s while watering
+            time.sleep(5)  # Delay to avoid rapid reading
     except KeyboardInterrupt:
         pass
 
@@ -113,13 +113,13 @@ if __name__ == '__main__':
 
     # Create threads for each function
     water_pump_thread = threading.Thread(target=trigger_water_pump_from_moisture_on_sensor)
-    #fan_thread = threading.Thread(target=trigger_fan_from_humidity_on_sensor)
-    #lights_thread = threading.Thread(target=trigger_lights_periodically)
+    fan_thread = threading.Thread(target=trigger_fan_from_humidity_on_sensor)
+    lights_thread = threading.Thread(target=trigger_lights_periodically)
     #
     ## Start the threads
     water_pump_thread.start()
-    #fan_thread.start()
-    #lights_thread.start()
+    fan_thread.start()
+    lights_thread.start()
 
     #asyncio.run(trigger_water_pump_from_moisture_on_sensor())
     app.run(host='0.0.0.0', port=8123, debug=True)
