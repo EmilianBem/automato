@@ -121,9 +121,7 @@ if __name__ == '__main__':
     #fan_thread.start()
     #lights_thread.start()
 
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(trigger_water_pump_from_moisture_on_sensor())
-    loop.close()
+    asyncio.run(trigger_water_pump_from_moisture_on_sensor())
     app.run(host='0.0.0.0', port=8123, debug=True)
 
     try:
