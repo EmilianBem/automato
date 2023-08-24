@@ -96,7 +96,7 @@ async def trigger_lights_periodically():
     except KeyboardInterrupt:
         pass
 
-def trigger_water_pump_from_moisture_on_sensor():
+async def trigger_water_pump_from_moisture_on_sensor():
     try:
         while True:
             stemma_values = api_stemma_out()
@@ -117,9 +117,9 @@ if __name__ == '__main__':
     lights_thread = threading.Thread(target=trigger_lights_periodically)
     #
     ## Start the threads
-    water_pump_thread.start()
-    fan_thread.start()
-    lights_thread.start()
+    await water_pump_thread.start()
+    await fan_thread.start()
+    await lights_thread.start()
 
     #asyncio.run(trigger_water_pump_from_moisture_on_sensor())
     app.run(host='0.0.0.0', port=8123, debug=True)
