@@ -101,9 +101,9 @@ def trigger_water_pump_from_moisture_on_sensor():
         while True:
             stemma_values = api_stemma_out()
             if stemma_values["Moisture"] > 600:
-                GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.LOW)
-            elif stemma_values["Moisture"] < 400:
                 GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.HIGH)
+            elif stemma_values["Moisture"] < 400:
+                GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.LOW)
                 time.sleep(1)  # check sensor every 1s while watering
             time.sleep(5)  # Delay to avoid rapid reading
     except KeyboardInterrupt:
@@ -113,12 +113,12 @@ if __name__ == '__main__':
 
     # Create threads for each function
     water_pump_thread = threading.Thread(target=trigger_water_pump_from_moisture_on_sensor)
-    #fan_thread = threading.Thread(target=trigger_fan_from_humidity_on_sensor)
+    fan_thread = threading.Thread(target=trigger_fan_from_humidity_on_sensor)
     lights_thread = threading.Thread(target=trigger_lights_periodically)
-    ##
-    ### Start the threads
+
+    # Start the threads
     water_pump_thread.start()
-    #fan_thread.start()
+    fan_thread.start()
     lights_thread.start()
 
     app.run(host='0.0.0.0', port=8123, debug=True)
