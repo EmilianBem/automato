@@ -82,7 +82,6 @@ def trigger_water_pump_from_moisture_on_sensor():
                 GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.HIGH)
                 time.sleep(1000)  # check sensor every 1s while watering
             time.sleep(5000)  # Delay to avoid rapid reading
-
     except KeyboardInterrupt:
         pass
 def trigger_fan_from_humidity_on_sensor():
@@ -95,7 +94,6 @@ def trigger_fan_from_humidity_on_sensor():
                 GPIO.output(RELAY_PIN_FAN, GPIO.LOW)
                 time.sleep(5000)  # check sensor every 1s
             time.sleep(10000)  # Delay to avoid rapid reading
-
     except KeyboardInterrupt:
         pass
 def trigger_lights_periodically():
@@ -117,7 +115,7 @@ if __name__ == '__main__':
     lights_thread = threading.Thread(target=trigger_lights_periodically)
 
     # Start the threads
-    water_pump_thread.start()
+    #water_pump_thread.start()
     fan_thread.start()
     lights_thread.start()
 
