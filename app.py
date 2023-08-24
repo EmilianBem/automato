@@ -78,9 +78,9 @@ try:
         bme_values = api_bme680_out()
 
         if stemma_values["Moisture"] > 300:
-            GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.HIGH)  # Turn on output pin
+            GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.LOW)  # Turn on output pin
         else:
-            GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.LOW)  # Turn off output pin
+            GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.HIGH)  # Turn off output pin
 
         time.sleep(5000)  # Delay to avoid rapid reading
 
