@@ -72,7 +72,7 @@ def update_sensor_data():
     )
     return response
 
-def trigger_fan_from_humidity_on_sensor():
+async def trigger_fan_from_humidity_on_sensor():
     try:
         while True:
             bme_values = api_bme680_out()
@@ -85,7 +85,7 @@ def trigger_fan_from_humidity_on_sensor():
             time.sleep(10000)  # Delay to avoid rapid reading
     except KeyboardInterrupt:
         pass
-def trigger_lights_periodically():
+async def trigger_lights_periodically():
     try:
         while True:
             GPIO.output(RELAY_PIN_LIGHTS_1, GPIO.HIGH)
@@ -96,7 +96,7 @@ def trigger_lights_periodically():
     except KeyboardInterrupt:
         pass
 
-def trigger_water_pump_from_moisture_on_sensor():
+async def trigger_water_pump_from_moisture_on_sensor():
     try:
         while True:
             stemma_values = api_stemma_out()
@@ -112,15 +112,18 @@ def trigger_water_pump_from_moisture_on_sensor():
 if __name__ == '__main__':
 
     # Create threads for each function
-    water_pump_thread = threading.Thread(target=trigger_water_pump_from_moisture_on_sensor)
-    fan_thread = threading.Thread(target=trigger_fan_from_humidity_on_sensor)
-    lights_thread = threading.Thread(target=trigger_lights_periodically)
-
-    # Start the threads
+    #water_pump_thread = threading.Thread(target=trigger_water_pump_from_moisture_on_sensor)
+    #fan_thread = threading.Thread(target=trigger_fan_from_humidity_on_sensor)
+    #lights_thread = threading.Thread(target=trigger_lights_periodically)
+    #
+    ## Start the threads
     #water_pump_thread.start()
-    fan_thread.start()
-    lights_thread.start()
+    #fan_thread.start()
+    #lights_thread.start()
 
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(trigger_lights_periodically())
+    loop.close()
     app.run(host='0.0.0.0', port=8123, debug=True)
 
     try:
