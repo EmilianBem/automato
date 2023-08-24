@@ -72,7 +72,7 @@ def update_sensor_data():
     )
     return response
 
-async def trigger_fan_from_humidity_on_sensor():
+def trigger_fan_from_humidity_on_sensor():
     try:
         while True:
             bme_values = api_bme680_out()
@@ -85,7 +85,7 @@ async def trigger_fan_from_humidity_on_sensor():
             time.sleep(10)  # Delay to avoid rapid reading
     except KeyboardInterrupt:
         pass
-async def trigger_lights_periodically():
+def trigger_lights_periodically():
     try:
         while True:
             GPIO.output(RELAY_PIN_LIGHTS_1, GPIO.HIGH)
@@ -96,7 +96,7 @@ async def trigger_lights_periodically():
     except KeyboardInterrupt:
         pass
 
-async def trigger_water_pump_from_moisture_on_sensor():
+def trigger_water_pump_from_moisture_on_sensor():
     try:
         while True:
             stemma_values = api_stemma_out()
@@ -120,10 +120,7 @@ if __name__ == '__main__':
     #water_pump_thread.start()
     #fan_thread.start()
     #lights_thread.start()
-    # create the custom coroutine
-    coro = trigger_water_pump_from_moisture_on_sensor()
-    # run the coroutine in an asyncio program
-    asyncio.run(coro)
+
     app.run(host='0.0.0.0', port=8123, debug=True)
 
     try:
