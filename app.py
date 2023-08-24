@@ -80,9 +80,9 @@ try:
 
         if stemma_values["Moisture"] > 300:
             print(stemma_values["Moisture"])
-            GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.LOW)  # Turn on output pin
+            GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.HIGH)  # Turn on output pin
         else:
-            GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.HIGH)  # Turn off output pin
+            GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.LOW)  # Turn off output pin
 
         time.sleep(5000)  # Delay to avoid rapid reading
 
