@@ -101,10 +101,10 @@ def trigger_fan_from_humidity_on_sensor():
 def trigger_lights_periodically():
     try:
         while True:
+            GPIO.output(RELAY_PIN_LIGHTS_1, GPIO.HIGH)
+            time.sleep(1000)
             GPIO.output(RELAY_PIN_LIGHTS_1, GPIO.LOW)
             time.sleep(1000)
-            GPIO.output(RELAY_PIN_LIGHTS_1, GPIO.HIGH)
-            time.sleep(1000)  # Delay to avoid rapid reading
 
     except KeyboardInterrupt:
         pass
