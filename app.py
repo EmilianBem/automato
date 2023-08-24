@@ -3,6 +3,8 @@ from bme680 import bme680_out
 from STEMMA_soil_sensor import stemma_out
 import RPi.GPIO as GPIO
 import time
+import asyncio
+import threading
 
 app = Flask(__name__)
 
