@@ -72,23 +72,12 @@ def update_sensor_data():
     )
     return response
 
-def trigger_water_pump_from_moisture_on_sensor():
-    try:
-        while True:
-            stemma_values = api_stemma_out()
-            if stemma_values["Moisture"] > 1500:
-                GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.LOW)
-            elif stemma_values["Moisture"] < 500:
-                GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.HIGH)
-                time.sleep(1000)  # check sensor every 1s while watering
-            time.sleep(5000)  # Delay to avoid rapid reading
-    except KeyboardInterrupt:
-        pass
 def trigger_fan_from_humidity_on_sensor():
     try:
         while True:
             bme_values = api_bme680_out()
             if bme_values["Humidity"] > 40:
+                print(bme_values["Humidity"])
                 GPIO.output(RELAY_PIN_FAN, GPIO.HIGH)
             elif bme_values["Humidity"] < 40:
                 GPIO.output(RELAY_PIN_FAN, GPIO.LOW)
@@ -104,6 +93,19 @@ def trigger_lights_periodically():
             GPIO.output(RELAY_PIN_LIGHTS_1, GPIO.LOW)
             time.sleep(1000)
 
+    except KeyboardInterrupt:
+        pass
+
+def trigger_water_pump_from_moisture_on_sensor():
+    try:
+        while True:
+            stemma_values = api_stemma_out()
+            if stemma_values["Moisture"] > 1500:
+                GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.LOW)
+            elif stemma_values["Moisture"] < 500:
+                GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.HIGH)
+                time.sleep(1000)  # check sensor every 1s while watering
+            time.sleep(5000)  # Delay to avoid rapid reading
     except KeyboardInterrupt:
         pass
 
