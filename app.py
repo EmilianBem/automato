@@ -81,7 +81,7 @@ def trigger_fan_from_humidity_on_sensor():
                 GPIO.output(RELAY_PIN_FAN, GPIO.HIGH)
             elif bme_values["Humidity"] < 40:
                 GPIO.output(RELAY_PIN_FAN, GPIO.LOW)
-                time.sleep(5)  # check sensor every 1s
+                time.sleep(5)  # check sensor every 5s
             time.sleep(10)  # Delay to avoid rapid reading
     except KeyboardInterrupt:
         pass
@@ -111,12 +111,10 @@ def trigger_water_pump_from_moisture_on_sensor():
 
 if __name__ == '__main__':
 
-    # Create threads for each function
     water_pump_thread = threading.Thread(target=trigger_water_pump_from_moisture_on_sensor)
     fan_thread = threading.Thread(target=trigger_fan_from_humidity_on_sensor)
     lights_thread = threading.Thread(target=trigger_lights_periodically)
 
-    # Start the threads
     water_pump_thread.start()
     fan_thread.start()
     lights_thread.start()
