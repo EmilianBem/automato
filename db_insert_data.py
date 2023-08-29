@@ -37,7 +37,7 @@ def insert_data(connection=connect_to_db()):
 
     finally:
         if connection:
-            connection.close()
+            #connection.close()
             print("Connection closed")
 
 
@@ -52,5 +52,3 @@ def get_measurements():
         "pressure": bme_values["Pressure"]
     }
 
-
-insert_data()
