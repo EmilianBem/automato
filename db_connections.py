@@ -8,12 +8,12 @@ def connect_to_db():
         database="automato",
         user="pi",
         password='dupa'
-        return connection
-    )
+        )
         print("connection database sukcesfull")
     except (Exception, psycopg2.Error) as error:
             print("Error:", error)
 
+    return connection
 
 
 
