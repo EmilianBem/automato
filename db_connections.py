@@ -1,6 +1,6 @@
 import psycopg2
 
-def sent_to_db():
+def connect_to_db():
     #connect to database
     try:
         connection = psycopg2.connect(
@@ -8,12 +8,13 @@ def sent_to_db():
         database="automato",
         user="pi",
         password='dupa'
+        return connection
     )
         print("connection database sukcesfull")
     except (Exception, psycopg2.Error) as error:
             print("Error:", error)
 
 
-sent_to_db()
+
 
 

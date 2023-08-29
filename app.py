@@ -117,6 +117,18 @@ def trigger_water_pump_from_moisture_on_sensor():
     except KeyboardInterrupt:
         pass
 
+def get_measurements():
+    stemma_values = api_stemma_out()
+    bme_values = api_bme680_out()
+    return {
+      'soil_temperature':stemma_values["Temperature"],
+      'moisture':stemma_values["Moisture"],
+      'bme_temperature':bme_values["Temperature"],
+      'humidity':bme_values["Humidity"],
+      "pressure":bme_values["Pressure"]
+    }
+
+    
 
 if __name__ == '__main__':
 
