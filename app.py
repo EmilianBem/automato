@@ -6,6 +6,8 @@ import time
 import asyncio
 import threading
 
+from db_insert_data import insert_data
+
 app = Flask(__name__)
 
 RELAY_PIN_FAN = 22
@@ -65,6 +67,7 @@ def control_devices():
 
 @app.route('/update_sensor_data')
 def update_sensor_data():
+    insert_data()
     stemma_values = api_stemma_out()
     bme_values = api_bme680_out()
     response = (

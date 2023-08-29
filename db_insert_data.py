@@ -39,4 +39,3 @@ def insert_data(connection=connect_to_db()):
             print("Connection closed")
 
 
-insert_data()
