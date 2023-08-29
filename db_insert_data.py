@@ -2,7 +2,6 @@ from datetime import datetime
 import psycopg2
 from STEMMA_soil_sensor import stemma_out
 from bme680 import bme680_out
-from db_insert_data import insert_data
 from db_connections import connect_to_db
 
 def insert_data(connection=connect_to_db()):
