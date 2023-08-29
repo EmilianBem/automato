@@ -26,19 +26,22 @@ GPIO.setup(RELAY_PIN_LIGHTS_1, GPIO.OUT)
 GPIO.setup(RELAY_PIN_LIGHTS_2, GPIO.OUT)
 GPIO.setup(RELAY_PIN_WATER_PUMP, GPIO.OUT)
 
+
 @app.route('/bme680')
 def api_bme680_out():
-	return bme680_out()
+    return bme680_out()
+
 
 @app.route('/STEMMA_soil_sensor')
 def api_stemma_out():
-	return stemma_out()
+    return stemma_out()
 
 
 @app.route('/')
 def index():
-	response = str(render_template('index.html'))
-	return response
+    response = str(render_template('index.html'))
+    return response
+
 
 @app.route('/control-devices', methods=['POST'])
 def control_devices():
@@ -59,18 +62,20 @@ def control_devices():
 
     return str(render_template('index.html'))
 
+
 @app.route('/update_sensor_data')
 def update_sensor_data():
     stemma_values = api_stemma_out()
     bme_values = api_bme680_out()
     response = (
-        "Stemma: <br>Temp: " + str(stemma_values["Temperature"])
-        + "<br>Moisture: " + str(stemma_values["Moisture"])
-        + "<br><br> BME680: <br> Temp: " + str(bme_values["Temperature"])
-        + "<br>Humidity: " + str(bme_values["Humidity"])
-        + "<br> Pressure: " + str(bme_values["Pressure"])
+            "Stemma: <br>Temp: " + str(stemma_values["Temperature"])
+            + "<br>Moisture: " + str(stemma_values["Moisture"])
+            + "<br><br> BME680: <br> Temp: " + str(bme_values["Temperature"])
+            + "<br>Humidity: " + str(bme_values["Humidity"])
+            + "<br> Pressure: " + str(bme_values["Pressure"])
     )
     return response
+
 
 def trigger_fan_from_humidity_on_sensor():
     try:
@@ -85,6 +90,8 @@ def trigger_fan_from_humidity_on_sensor():
             time.sleep(10)  # Delay to avoid rapid reading
     except KeyboardInterrupt:
         pass
+
+
 def trigger_lights_periodically():
     try:
         while True:
@@ -95,6 +102,7 @@ def trigger_lights_periodically():
 
     except KeyboardInterrupt:
         pass
+
 
 def trigger_water_pump_from_moisture_on_sensor():
     try:
@@ -108,6 +116,7 @@ def trigger_water_pump_from_moisture_on_sensor():
             time.sleep(5)  # Delay to avoid rapid reading
     except KeyboardInterrupt:
         pass
+
 
 if __name__ == '__main__':
 
