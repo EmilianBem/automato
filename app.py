@@ -8,7 +8,6 @@ import asyncio
 import threading
 
 
-
 app = Flask(__name__)
 
 RELAY_PIN_FAN = 22
@@ -106,6 +105,20 @@ def trigger_lights_periodically():
             GPIO.output(RELAY_PIN_LIGHTS_1, GPIO.LOW)
             time.sleep(1)
 
+    except KeyboardInterrupt:
+        pass
+
+
+def trigger_water_pump_from_moisture_on_sensor():
+    try:
+        while True:
+            stemma_values = api_stemma_out()
+            if stemma_values["Moisture"] > 600:
+                GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.HIGH)
+            elif stemma_values["Moisture"] < 400:
+                GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.LOW)
+                time.sleep(1)  # check sensor every 1s while watering
+            time.sleep(5)  # Delay to avoid rapid reading
     except KeyboardInterrupt:
         pass
 
