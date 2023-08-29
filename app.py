@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request
 from bme680 import bme680_out
 from STEMMA_soil_sensor import stemma_out
+from db_insert_data import insert_data
 import RPi.GPIO as GPIO
 import time
 import asyncio
 import threading
+
 
 app = Flask(__name__)
 
@@ -65,6 +67,9 @@ def control_devices():
 
 @app.route('/update_sensor_data')
 def update_sensor_data():
+    data_insert_thread = threading.Thread(target=insert_data)
+    data_insert_thread.start()
+
     stemma_values = api_stemma_out()
     bme_values = api_bme680_out()
     response = (
@@ -117,6 +122,20 @@ def trigger_water_pump_from_moisture_on_sensor():
     except KeyboardInterrupt:
         pass
 
+
+def trigger_water_pump_from_moisture_on_sensor():
+    try:
+        while True:
+            stemma_values = api_stemma_out()
+            if stemma_values["Moisture"] > 600:
+                GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.HIGH)
+            elif stemma_values["Moisture"] < 400:
+                GPIO.output(RELAY_PIN_WATER_PUMP, GPIO.LOW)
+                time.sleep(1)  # check sensor every 1s while watering
+            time.sleep(5)  # Delay to avoid rapid reading
+    except KeyboardInterrupt:
+        pass
+    
 
 if __name__ == '__main__':
 
