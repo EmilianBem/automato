@@ -23,6 +23,7 @@ def insert_data(connection=connect_to_db()):
             round(data["humidity"],0),
             round(data["pressure"],4)
         )
+        print(data_to_insert)
 
         # Execute the INSERT statement
         cursor.execute(insert_query, data_to_insert)
