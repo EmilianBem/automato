@@ -3,9 +3,10 @@ from app import get_measurements
 import psycopg2
 from db_connections import connect_to_db
 
-def insert_data(connection):
+def insert_data(connection=connect_to_db()):
     try:
-        cursor = connect_to_db().cursor()
+        
+        cursor = connection.cursor()
 
          # Prepare the SQL INSERT statement
         insert_query = """
@@ -36,6 +37,5 @@ def insert_data(connection):
             connection.close()
             print("Connection closed")
 
-        
-    
-    
+
+insert_data()
