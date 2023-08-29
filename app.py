@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request
 from bme680 import bme680_out
 from STEMMA_soil_sensor import stemma_out
+from db_insert_data import insert_data
 import RPi.GPIO as GPIO
 import time
 import asyncio
 import threading
 
-from db_insert_data import insert_data
+
 
 app = Flask(__name__)
 
@@ -119,18 +120,6 @@ def trigger_water_pump_from_moisture_on_sensor():
             time.sleep(5)  # Delay to avoid rapid reading
     except KeyboardInterrupt:
         pass
-
-def get_measurements():
-    stemma_values = api_stemma_out()
-    bme_values = api_bme680_out()
-    return {
-      'soil_temperature':stemma_values["Temperature"],
-      'moisture':stemma_values["Moisture"],
-      'bme_temperature':bme_values["Temperature"],
-      'humidity':bme_values["Humidity"],
-      "pressure":bme_values["Pressure"]
-    }
-
     
 
 if __name__ == '__main__':

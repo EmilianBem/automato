@@ -1,6 +1,8 @@
 from datetime import datetime
-from app import get_measurements
 import psycopg2
+from STEMMA_soil_sensor import stemma_out
+from bme680 import bme680_out
+from db_insert_data import insert_data
 from db_connections import connect_to_db
 
 def insert_data(connection=connect_to_db()):
@@ -38,4 +40,15 @@ def insert_data(connection=connect_to_db()):
             connection.close()
             print("Connection closed")
 
+
+def get_measurements():
+    stemma_values = stemma_out()
+    bme_values = bme680_out()
+    return {
+      'soil_temperature':stemma_values["Temperature"],
+      'moisture':stemma_values["Moisture"],
+      'bme_temperature':bme_values["Temperature"],
+      'humidity':bme_values["Humidity"],
+      "pressure":bme_values["Pressure"]
+    }
 
