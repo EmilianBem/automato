@@ -3,6 +3,7 @@ from bme680 import bme680_out
 from STEMMA_soil_sensor import stemma_out
 import RPi.GPIO as GPIO
 import time
+import psycopg2
 
 app = Flask(__name__)
 
@@ -52,3 +53,17 @@ if __name__ == '__main__':
             break
         time.sleep(0.1)  # Dostosuj czas oczekiwania, jeśli trzeba
     app.run(host='0.0.0.0', port=8123, debug=True)
+
+
+def sent_to_db():
+    #connect to database
+    try:
+        connection = psycopg2.connect(
+        host="192.168.0.140",
+        database="automato",
+        user="postgres"
+    )
+        print("connection database sukcesfull")
+    except (Exception, psycopg2.Error) as error:
+            print("Error:", error)
+
