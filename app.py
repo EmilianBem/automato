@@ -68,7 +68,9 @@ def control_devices():
 
 @app.route('/update_sensor_data')
 def update_sensor_data():
-    insert_data()
+    data_insert_thread = threading.Thread(target=insert_data)
+    data_insert_thread.start()
+
     stemma_values = api_stemma_out()
     bme_values = api_bme680_out()
     response = (
