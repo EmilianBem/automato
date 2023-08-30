@@ -5,9 +5,9 @@ from bme680 import bme680_out
 from db_connections import connect_to_db
 
 
-def insert_data(connection=connect_to_db()):
+def insert_data():
     try:
-
+        connection = connect_to_db()
         cursor = connection.cursor()
 
         # Prepare the SQL INSERT statement
@@ -37,7 +37,7 @@ def insert_data(connection=connect_to_db()):
 
     finally:
         if connection:
-            #connection.close()
+            connection.close()
             print("Connection closed")
 
 
