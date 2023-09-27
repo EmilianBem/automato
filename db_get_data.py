@@ -14,14 +14,14 @@ def get_db_data(*self):
             'temp': 'bme_temperature',
             'hum': 'humidity'
         }
-        # measurement = measurements[measurement]
-        str = ''
+        measurement = ''
         for item in self:
-            str = str + item
-        print(str)
+            measurement = measurement + item
+        measurement = measurements[measurement]
+
         # Prepare the SQL INSERT statement
         select_query = f"""
-        select date(time_stamp) as day, bme_temperature from measurements group by 1,2 order by day;
+        select date(time_stamp) as day, {measurement} from measurements group by 1,2 order by day;
         """
 
         # Execute the INSERT statement
