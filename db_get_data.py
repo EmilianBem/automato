@@ -12,7 +12,7 @@ def get_db_data():
 
         # Prepare the SQL INSERT statement
         select_query = """
-        SELECT * FROM measurements;
+        SELECT time_stamp, bme_temperature FROM measurements;
         """
 
         # Execute the INSERT statement
