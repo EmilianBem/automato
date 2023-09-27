@@ -14,6 +14,7 @@ def get_db_data(measurement):
             'hum': 'humidity'
         }
         measurement = measurements[measurement]
+        print(measurement)
         # Prepare the SQL INSERT statement
         select_query = f"""
         select date(time_stamp) as day, {measurement} from measurements group by 1,2 order by day;
@@ -22,7 +23,7 @@ def get_db_data(measurement):
         # Execute the INSERT statement
         cursor.execute(select_query)
         rows = cursor.fetchall()
-
+        print(rows)
         connection.commit()
         formatted_data = {str(date): float(temp) for date, temp in rows}
 
