@@ -84,6 +84,10 @@
                     <h5 class="blue-text">Sensor Data</h5>
                     <div id="sensor-data"></div>
                 </div>
+                <div class="card-panel blue-grey darken-4">
+                    <h5 class="blue-text">Temperature chart</h5>
+                    <canvas id="temp-chart"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -99,8 +103,31 @@
         };
         xhr.send();
     }
-    
     // Automatycznie odświeżaj dane co 5 sekund
     setInterval(updateSensorData, 5000);
+</script>
+<script>
+        var ctx = document.getElementById('temp-chart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                datasets: [{
+                    label: 'Monthly Sales',
+                    data: [65, 59, 80, 81, 56, 55],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.1, // This controls the curve of the line
+                    fill: true
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
 </script>
 </html>
