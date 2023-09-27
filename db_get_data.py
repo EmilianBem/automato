@@ -12,7 +12,7 @@ def get_db_data():
 
         # Prepare the SQL INSERT statement
         select_query = """
-        SELECT time_stamp, bme_temperature FROM measurements;
+        select date(time_stamp) as day, bme_temperature from measurements group by 1,2 order by day;
         """
 
         # Execute the INSERT statement
