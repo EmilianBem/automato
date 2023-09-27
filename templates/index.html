@@ -110,11 +110,10 @@
 <script>
         var temp_values = [];
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/update_sensor_data", true);
+        xhr.open("GET", "/get_db_temp_data", true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 temp_values = xhr.responseText;
-                console.log(temp_values);
             }
         };
         xhr.send();
