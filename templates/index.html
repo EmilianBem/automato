@@ -108,6 +108,16 @@
     setInterval(updateSensorData, 5000);
 </script>
 <script>
+        var temp_values = [];
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/update_sensor_data", true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                temp_values = xhr.responseText;
+                console.log(temp_values);
+            }
+        };
+        xhr.send();
         var ctx = document.getElementById('temp-chart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
