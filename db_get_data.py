@@ -6,8 +6,7 @@ from db_connections import connect_to_db
 
 
 # def get_db_data(*self, measurement):
-@staticmethod
-def get_db_data(measurement):
+def get_db_data(*self, **measurement):
     try:
         connection = connect_to_db()
         cursor = connection.cursor()
