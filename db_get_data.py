@@ -1,3 +1,4 @@
+import argparse
 from datetime import datetime
 from threading import Thread
 
@@ -14,7 +15,8 @@ def get_db_data(*self):
             'hum': 'humidity'
         }
         # measurement = measurements[measurement]
-        print(*self)
+        # print(*self)
+        print(argparse.parse_args())
         # Prepare the SQL INSERT statement
         select_query = f"""
         select date(time_stamp) as day, bme_temperature from measurements group by 1,2 order by day;
