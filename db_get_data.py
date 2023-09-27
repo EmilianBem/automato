@@ -5,14 +5,18 @@ import psycopg2
 from db_connections import connect_to_db
 
 
-def get_db_data():
+def get_db_data(measurement):
     try:
         connection = connect_to_db()
         cursor = connection.cursor()
-
+        measurements = {
+            'temp': 'bme_temperature',
+            'hum': 'humidity'
+        }
+        measurement = measurements[measurement]
         # Prepare the SQL INSERT statement
-        select_query = """
-        select date(time_stamp) as day, bme_temperature from measurements group by 1,2 order by day;
+        select_query = f"""
+        select date(time_stamp) as day, {measurement} from measurements group by 1,2 order by day;
         """
 
         # Execute the INSERT statement
