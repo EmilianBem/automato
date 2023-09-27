@@ -17,7 +17,7 @@ def get_db_data(*self, **measurement):
         print(measurement)
         # Prepare the SQL INSERT statement
         select_query = f"""
-        select date(time_stamp) as day, {measurement} from measurements group by 1,2 order by day;
+        select date(time_stamp) as day, bme_temperature from measurements group by 1,2 order by day;
         """
 
         # Execute the INSERT statement
