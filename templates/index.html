@@ -119,31 +119,32 @@
                 console.log(temp_values);
                 keys = Object.keys(temp_values);
                 values = Object.values(temp_values);
+
+                var ctx = document.getElementById('temp-chart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: keys,
+                        datasets: [{
+                            label: 'Monthly Sales',
+                            data: values,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            tension: 0.1, // This controls the curve of the line
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
             }
         };
         xhr.send();
 
-        var ctx = document.getElementById('temp-chart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: keys,
-                datasets: [{
-                    label: 'Monthly Sales',
-                    data: values,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    tension: 0.1, // This controls the curve of the line
-                    fill: true
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
 </script>
 </html>
