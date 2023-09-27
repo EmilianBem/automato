@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from bme680 import bme680_out
 from STEMMA_soil_sensor import stemma_out
 from db_insert_data import insert_data
-from db_get_data import get_db_data
+from db_get_data import CustomThread, get_db_data
 import RPi.GPIO as GPIO
 import time
 import asyncio
@@ -84,11 +84,10 @@ def update_sensor_data():
 
 @app.route('/get_db_temp_data')
 def get_db_temp_data():
-    data_query_thread = threading.Thread(target=get_db_data)
+    data_query_thread = CustomThread(target=get_db_data)
     data_query_thread.start()
-    data_query_thread.join()
     response = (
-        data_query_thread
+        data_query_thread.join()
     )
     return response
 
