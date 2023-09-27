@@ -122,6 +122,7 @@
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 temp_values = JSON.parse(xhr.responseText);
+                // console.log(temp_values);
                 keys = Object.keys(temp_values);
                 values = Object.values(temp_values);
 
@@ -150,7 +151,8 @@
             }
         };
         xhr.send();
-
+</script>
+<script>
         var hum_values = [];
         var keys = [];
         var values = [];
@@ -159,8 +161,9 @@
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 temp_values = JSON.parse(xhr.responseText);
-                keys = Object.keys(hum_values);
-                values = Object.values(hum_values);
+                console.log(temp_values);
+                keys = Object.keys(temp_values);
+                values = Object.values(temp_values);
 
                 var ctx = document.getElementById('hum-chart').getContext('2d');
                 var humChart = new Chart(ctx, {
