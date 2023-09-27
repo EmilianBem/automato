@@ -2,7 +2,6 @@ from datetime import datetime
 from threading import Thread
 
 import psycopg2
-from numpy.char import lstrip
 
 from db_connections import connect_to_db
 
