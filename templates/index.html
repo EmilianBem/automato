@@ -154,16 +154,16 @@
 </script>
 <script>
         var hum_values = [];
-        var keys = [];
-        var values = [];
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/get_db_hum_data", true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                temp_values = JSON.parse(xhr.responseText);
+        var keys2 = [];
+        var values2 = [];
+        var xhr2 = new XMLHttpRequest();
+        xhr2.open("GET", "/get_db_hum_data", true);
+        xhr2.onreadystatechange = function () {
+            if (xhr2.readyState == 4 && xhr2.status == 200) {
+                hum_values = JSON.parse(xhr2.responseText);
                 // console.log(temp_values);
-                keys = Object.keys(temp_values);
-                values = Object.values(temp_values);
+                keys = Object.keys(hum_values);
+                values = Object.values(hum_values);
 
                 var ctx = document.getElementById('hum-chart').getContext('2d');
                 var humChart = new Chart(ctx, {
@@ -189,6 +189,6 @@
                 });
             }
         };
-        xhr.send();
+        xhr2.send();
 </script>
 </html>
