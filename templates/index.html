@@ -162,8 +162,8 @@
                 keys = Object.keys(hum_values);
                 values = Object.values(hum_values);
 
-                var ctx = document.getElementById('hum-chart').getContext('2d');
-                var humChart = new Chart(ctx, {
+                var ctx2 = document.getElementById('hum-chart').getContext('2d');
+                var humChart = new Chart(ctx2, {
                     type: 'line',
                     data: {
                         labels: keys,
