@@ -161,7 +161,7 @@
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 temp_values = JSON.parse(xhr.responseText);
-                console.log(temp_values);
+                // console.log(temp_values);
                 keys = Object.keys(temp_values);
                 values = Object.values(temp_values);
 
