@@ -20,7 +20,9 @@ def get_db_data():
         rows = cursor.fetchall()
 
         connection.commit()
-        print(rows)
+        formatted_data = {str(date): float(temp) for date, temp in rows}
+
+        print(formatted_data)
 
     except (Exception, psycopg2.Error) as error:
         print("Error:", error)
@@ -30,7 +32,7 @@ def get_db_data():
             connection.close()
             print("Connection closed")
 
-    return rows
+    return formatted_data
 
 
 class CustomThread(Thread):
