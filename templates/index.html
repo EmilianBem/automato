@@ -85,18 +85,14 @@
                     <h5 class="blue-text">Sensor Data</h5>
                     <div id="sensor-data"></div>
                 </div>
-                <div class="col s12">
-                    <div class="col s12">
-                        <div class="card-panel blue-grey darken-4">
-                            <h5 class="blue-text">Temperature chart</h5>
-                            <canvas id="temp-chart"></canvas>
-                        </div>
+                <div class="col s6">
+                    <div class="card-panel blue-grey darken-4">
+                        <h5 class="blue-text">Temperature chart</h5>
+                        <canvas id="temp-chart"></canvas>
                     </div>
-                    <div class="col s6">
-                        <div class="card-panel blue-grey darken-4">
-                            <h5 class="blue-text">Humidity chart</h5>
-                            <canvas id="hum-chart"></canvas>
-                        </div>
+                    <div class="card-panel blue-grey darken-4">
+                        <h5 class="blue-text">Humidity chart</h5>
+                        <canvas id="hum-chart"></canvas>
                     </div>
                 </div>
             </div>
@@ -163,9 +159,10 @@
         xhr.open("GET", "/get_db_hum_data", true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
-                hum_values = JSON.parse(xhr.responseText);
-                keys = Object.keys(hum_values);
-                values = Object.values(hum_values);
+                temp_values = JSON.parse(xhr.responseText);
+                console.log(temp_values);
+                keys = Object.keys(temp_values);
+                values = Object.values(temp_values);
 
                 var ctx = document.getElementById('hum-chart').getContext('2d');
                 var humChart = new Chart(ctx, {
