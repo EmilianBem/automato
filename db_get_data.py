@@ -5,7 +5,6 @@ import psycopg2
 from db_connections import connect_to_db
 
 
-# def get_db_data(*self, measurement):
 def get_db_data(*self, **measurement):
     try:
         connection = connect_to_db()
@@ -29,6 +28,7 @@ def get_db_data(*self, **measurement):
         formatted_data = {str(date): float(temp) for date, temp in rows}
 
         print(formatted_data)
+        return formatted_data
 
     except (Exception, psycopg2.Error) as error:
         print("Error:", error)
@@ -37,8 +37,6 @@ def get_db_data(*self, **measurement):
         if connection:
             connection.close()
             print("Connection closed")
-
-    return formatted_data
 
 
 class CustomThread(Thread):
