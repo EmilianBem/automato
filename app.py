@@ -84,7 +84,7 @@ def update_sensor_data():
 
 @app.route('/get_db_temp_data')
 def get_db_temp_data():
-    data_query_thread = CustomThread(target=get_db_data, args='temp')
+    data_query_thread = CustomThread(target=get_db_data, args=('temp'))
     data_query_thread.start()
     response = (
         data_query_thread.join()
@@ -94,7 +94,7 @@ def get_db_temp_data():
 
 @app.route('/get_db_hum_data')
 def get_db_hum_data():
-    data_query_thread = CustomThread(target=get_db_data, args='hum')
+    data_query_thread = CustomThread(target=get_db_data, args=('hum'))
     data_query_thread.start()
     response = (
         data_query_thread.join()
