@@ -5,7 +5,7 @@ import psycopg2
 from db_connections import connect_to_db
 
 
-def get_db_data(*self, **measurement):
+def get_db_data(self, measurement):
     try:
         connection = connect_to_db()
         cursor = connection.cursor()
