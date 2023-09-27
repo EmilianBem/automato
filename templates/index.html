@@ -109,17 +109,20 @@
 </script>
 <script>
         var temp_values = [];
+        var keys = [];
+        var values = [];
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "/get_db_temp_data", true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 temp_values = xhr.responseText;
                 console.log(temp_values);
+                keys = Object.keys(temp_values);
+                values = Object.values(temp_values);
             }
         };
         xhr.send();
-        const keys = Object.keys(temp_values);
-        const values = Object.values(temp_values);
+
         var ctx = document.getElementById('temp-chart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
