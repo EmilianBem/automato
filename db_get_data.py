@@ -2,6 +2,8 @@ from datetime import datetime
 from threading import Thread
 
 import psycopg2
+from numpy.char import lstrip
+
 from db_connections import connect_to_db
 
 
@@ -14,7 +16,7 @@ def get_db_data(*self):
             'hum': 'humidity'
         }
         # measurement = measurements[measurement]
-        print(*self)
+        print(lstrip(*self))
         # Prepare the SQL INSERT statement
         select_query = f"""
         select date(time_stamp) as day, bme_temperature from measurements group by 1,2 order by day;
