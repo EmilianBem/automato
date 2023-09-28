@@ -2,11 +2,11 @@ from flask import Flask, render_template, request
 from bme680 import bme680_out
 from STEMMA_soil_sensor import stemma_out
 from db_insert_data import insert_data
+from db_get_data import CustomThread, get_db_data
 import RPi.GPIO as GPIO
 import time
 import asyncio
 import threading
-
 
 app = Flask(__name__)
 
@@ -82,6 +82,26 @@ def update_sensor_data():
     return response
 
 
+@app.route('/get_db_temp_data')
+def get_db_temp_data():
+    data_query_thread = CustomThread(target=get_db_data, args='temp')
+    data_query_thread.start()
+    response = (
+        data_query_thread.join()
+    )
+    return response
+
+
+@app.route('/get_db_hum_data')
+def get_db_hum_data():
+    data_query_thread = CustomThread(target=get_db_data, args='hum')
+    data_query_thread.start()
+    response = (
+        data_query_thread.join()
+    )
+    return response
+
+
 def trigger_fan_from_humidity_on_sensor():
     try:
         while True:
@@ -135,7 +155,7 @@ def trigger_water_pump_from_moisture_on_sensor():
             time.sleep(5)  # Delay to avoid rapid reading
     except KeyboardInterrupt:
         pass
-    
+
 
 if __name__ == '__main__':
 

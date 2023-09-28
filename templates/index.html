@@ -23,6 +23,7 @@
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <nav>
@@ -84,6 +85,16 @@
                     <h5 class="blue-text">Sensor Data</h5>
                     <div id="sensor-data"></div>
                 </div>
+                <div class="col s12">
+                    <div class="col s6 card-panel blue-grey darken-4">
+                        <h5 class="blue-text">Temperature chart</h5>
+                        <canvas id="temp-chart"></canvas>
+                    </div>
+                    <div class="col s6 card-panel blue-grey darken-4">
+                        <h5 class="blue-text">Humidity chart</h5>
+                        <canvas id="hum-chart"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -99,8 +110,85 @@
         };
         xhr.send();
     }
-    
     // Automatycznie odświeżaj dane co 5 sekund
     setInterval(updateSensorData, 5000);
+</script>
+<script>
+        var temp_values = [];
+        var keys = [];
+        var values = [];
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/get_db_temp_data", true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                temp_values = JSON.parse(xhr.responseText);
+                // console.log(temp_values);
+                keys = Object.keys(temp_values);
+                values = Object.values(temp_values);
+
+                var ctx = document.getElementById('temp-chart').getContext('2d');
+                var tempChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: keys,
+                        datasets: [{
+                            label: 'Daily temp',
+                            data: values,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            tension: 0.1, // This controls the curve of the line
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        };
+        xhr.send();
+</script>
+<script>
+        var hum_values = [];
+        var keys2 = [];
+        var values2 = [];
+        var xhr2 = new XMLHttpRequest();
+        xhr2.open("GET", "/get_db_hum_data", true);
+        xhr2.onreadystatechange = function () {
+            if (xhr2.readyState == 4 && xhr2.status == 200) {
+                hum_values = JSON.parse(xhr2.responseText);
+                // console.log(temp_values);
+                keys = Object.keys(hum_values);
+                values = Object.values(hum_values);
+
+                var ctx = document.getElementById('hum-chart').getContext('2d');
+                var humChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: keys,
+                        datasets: [{
+                            label: 'Daily humidity',
+                            data: values,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            tension: 0.1, // This controls the curve of the line
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        };
+        xhr2.send();
 </script>
 </html>
